@@ -1,0 +1,29 @@
+//protoc test.proto --cpp_out=./
+syntax = "proto3";
+ package fixbug;//相当于C++ namespace
+ option cc_generic_services = true;
+ //数据 列表 映射表
+ message LoginRequest {
+ string name = 1;//写成bytes更好,使用方法不变
+ string pwd = 2;
+ }
+ message RegRequest {//相当于类，里面是成员对象
+ string name = 1;
+ string pwd = 2;
+ int32 age = 3;
+ enum SEX {
+ MAN = 0;
+ WOMAN = 1;
+ }
+ SEX sex = 4;
+ string phone = 5;
+ }
+ message Response {
+ int32 errorno = 1;
+ string errormsg = 2;
+ bool result = 3;
+ }
+ // 定义RPC服务接口类和服务方法
+service UserServiceRpc{
+ rpc login(LoginRequest) returns (Response);
+ rpc reg(RegRequest) returns (Response);}
