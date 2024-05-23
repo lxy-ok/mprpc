@@ -1,0 +1,8 @@
+syntax="proto3";
+package mprpc;
+
+message rpcheader{
+    bytes servicename=1;
+    bytes methodname=2;
+    uint32 argssize=3;
+}
